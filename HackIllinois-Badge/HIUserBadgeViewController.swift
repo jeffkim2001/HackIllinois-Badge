@@ -9,21 +9,27 @@
 import UIKit
 
 struct HackIllinois: Decodable {
+    
     var events : [Event]?
+    
 }
 
 struct Event: Decodable {
+    
     var name : String?
     var description : String?
     var startTime : Int64?
     var endTime: Int64?
     var locations : [Location]?
+    
 }
 
 struct Location: Decodable {
+    
     var description : String?
     var latitude : Double?
     var longitude : Double?
+    
 }
 
 class HIUserBadgeViewController: UIViewController {
@@ -44,12 +50,15 @@ class HIUserBadgeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpBuildingViews()
         retrieveEventData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        setUpBuildingViews()
+    }
+    
     func retrieveEventData() {
-        
         guard let url = URL(string: HIAPIURL) else {
             return
         }
@@ -86,7 +95,6 @@ class HIUserBadgeViewController: UIViewController {
         self.eventInformation.attributedText = NSAttributedString(string: "Latitude: \(latitude)°, Longitude: \(longitude)°", attributes: infoAttributes)
     }
     
-    
     func setUpBuildingViews() {
         roundRoofCorners()
         setShadowsForBuildings()
@@ -94,7 +102,7 @@ class HIUserBadgeViewController: UIViewController {
     
     func roundRoofCorners() {
         let shape = CAShapeLayer()
-        shape.path = UIBezierPath(roundedRect: roofView.bounds, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: roofView.bounds.height/2, height: 5)).cgPath
+        shape.path = UIBezierPath(roundedRect: roofView.bounds, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: roofView.bounds.height/2, height: 10)).cgPath
         roofView.layer.mask = shape
     }
     
@@ -107,6 +115,7 @@ class HIUserBadgeViewController: UIViewController {
 }
 
 extension UIView {
+    
     func setShadow() {
         layer.masksToBounds = false
         layer.shadowColor = UIColor.black.cgColor
@@ -116,5 +125,6 @@ extension UIView {
         layer.shadowPath = UIBezierPath(rect: bounds).cgPath
         layer.shouldRasterize = false
     }
+    
 }
 
