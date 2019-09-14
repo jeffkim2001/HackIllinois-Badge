@@ -39,7 +39,8 @@ class HIUserBadgeViewController: UIViewController {
     
     var HIAPIURL: String =  "https://api.hackillinois.org/event/"
     var hackIllinois: HackIllinois?
-    let attributes = [NSAttributedString.Key.font : UIFont(name: "Marker Felt", size: 17)!, NSAttributedString.Key.foregroundColor : UIColor(red: 150/255, green: 193/255, blue: 144/255, alpha: 1)]
+    let nameAttributes = [NSAttributedString.Key.font : UIFont(name: "Marker Felt", size: UIScreen.main.bounds.width/15)!, NSAttributedString.Key.foregroundColor : UIColor(red: 150/255, green: 193/255, blue: 144/255, alpha: 1)]
+    let infoAttributes = [NSAttributedString.Key.font : UIFont(name: "Marker Felt", size: UIScreen.main.bounds.width/25)!, NSAttributedString.Key.foregroundColor : UIColor(red: 150/255, green: 193/255, blue: 144/255, alpha: 1)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +82,8 @@ class HIUserBadgeViewController: UIViewController {
         guard let longitude = event2Locations[0].longitude else {
             return
         }
-        self.eventInformation.attributedText = NSAttributedString(string: "Latitude: \(latitude)°, Longitude: \(longitude)°", attributes: attributes)
+        self.participantName.attributedText = NSAttributedString(string: "Jeff Kim", attributes: nameAttributes)
+        self.eventInformation.attributedText = NSAttributedString(string: "Latitude: \(latitude)°, Longitude: \(longitude)°", attributes: infoAttributes)
     }
     
     
@@ -96,14 +98,11 @@ class HIUserBadgeViewController: UIViewController {
         roofView.layer.mask = shape
     }
     
-    
-    
     func setShadowsForBuildings() {
         contentView.setShadow()
         leftBuildingView.setShadow()
         rightBuildingView.setShadow()
     }
-    
     
 }
 
